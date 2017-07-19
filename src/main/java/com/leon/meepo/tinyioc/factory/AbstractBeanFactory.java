@@ -1,12 +1,14 @@
-package com.leon.meepo.tinyioc;
+package com.leon.meepo.tinyioc.factory;
+
+import com.leon.meepo.tinyioc.BeanDefinition;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by songlin01 on 17/7/15.
+ * Created by songlin01 on 17/7/20.
  */
-public class BeanFactory {
+public abstract class AbstractBeanFactory implements BeanFactory {
 
     private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>();
 
@@ -15,6 +17,10 @@ public class BeanFactory {
     }
 
     public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
+        Object bean = doCreateBean(beanDefinition);
+        beanDefinition.setBean(bean);
         beanDefinitionMap.put(beanName, beanDefinition);
     }
+
+    protected abstract Object doCreateBean(BeanDefinition beanDefinition);
 }
