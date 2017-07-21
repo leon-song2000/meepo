@@ -11,12 +11,17 @@ import org.junit.Test;
 public class BeanFactoryTest {
 
     @Test
-    public void test() {
+    public void test() throws Exception {
 
         BeanFactory beanFactory = new AutowireCapableBeanFactory();
 
         BeanDefinition beanDefinition = new BeanDefinition();
         beanDefinition.setBeanClassName("com.leon.meepo.tinyioc.HelloWorldService");
+
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("text", "hello world"));
+        beanDefinition.setPropertyValues(propertyValues);
+
         beanFactory.registerBeanDefinition("helloWorldService", beanDefinition);
 
         HelloWorldService helloWorldService = (HelloWorldService) beanFactory.getBean("helloWorldService");

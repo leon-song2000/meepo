@@ -5,7 +5,17 @@ package com.leon.meepo.tinyioc;
  */
 public class HelloWorldService {
 
-    public void HelloWorld(){
-        System.out.println("hello world!");
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void HelloWorld() {
+        System.out.println(text);
     }
 }

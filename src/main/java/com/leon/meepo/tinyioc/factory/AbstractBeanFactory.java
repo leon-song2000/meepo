@@ -16,11 +16,11 @@ public abstract class AbstractBeanFactory implements BeanFactory {
         return beanDefinitionMap.get(beanName).getBean();
     }
 
-    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) {
+    public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws Exception {
         Object bean = doCreateBean(beanDefinition);
         beanDefinition.setBean(bean);
         beanDefinitionMap.put(beanName, beanDefinition);
     }
 
-    protected abstract Object doCreateBean(BeanDefinition beanDefinition);
+    protected abstract Object doCreateBean(BeanDefinition beanDefinition) throws Exception;
 }
