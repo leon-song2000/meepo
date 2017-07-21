@@ -7,6 +7,8 @@ public class HelloWorldService {
 
     private String text;
 
+    private String name;
+
     public String getText() {
         return text;
     }
@@ -17,5 +19,7 @@ public class HelloWorldService {
 
     public void HelloWorld() {
         System.out.println(text);
+        System.out.println(name);
     }
+
 }
