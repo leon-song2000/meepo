@@ -7,19 +7,13 @@ public class HelloWorldService {
 
     private String text;
 
-    private String name;
+    private OutService outService;
 
-    public String getText() {
-        return text;
+    public void setOutService(OutService outService) {
+        this.outService = outService;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void helloWorld() {
+        outService.out(text);
     }
-
-    public void HelloWorld() {
-        System.out.println(text);
-        System.out.println(name);
-    }
-
 }

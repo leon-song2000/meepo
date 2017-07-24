@@ -1,6 +1,7 @@
 package com.leon.meepo.tinyioc.factory;
 
 import com.leon.meepo.tinyioc.BeanDefinition;
+import com.leon.meepo.tinyioc.BeanReference;
 import com.leon.meepo.tinyioc.PropertyValue;
 
 import java.lang.reflect.Field;
@@ -13,6 +14,7 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
     @Override
     protected Object doCreateBean(BeanDefinition beanDefinition) throws Exception {
         Object bean = createBeanInstance(beanDefinition);
+        beanDefinition.setBean(bean);
         applyPropertyValues(bean, beanDefinition);
         return bean;
     }
@@ -25,7 +27,12 @@ public class AutowireCapableBeanFactory extends AbstractBeanFactory {
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValueList()) {
             Field field = bean.getClass().getDeclaredField(propertyValue.getName());
             field.setAccessible(true);
-            field.set(bean, propertyValue.getValue());
+            Object value = propertyValue.getValue();
+            if (value instanceof BeanReference) {
+                BeanReference beanReference = (BeanReference) value;
+                value = getBean(beanReference.getName());
+            }
+            field.set(bean, value);
         }
     }
 

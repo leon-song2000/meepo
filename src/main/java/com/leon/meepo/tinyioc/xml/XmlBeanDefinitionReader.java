@@ -2,6 +2,7 @@ package com.leon.meepo.tinyioc.xml;
 
 import com.leon.meepo.tinyioc.AbstractBeanDefinitionReader;
 import com.leon.meepo.tinyioc.BeanDefinition;
+import com.leon.meepo.tinyioc.BeanReference;
 import com.leon.meepo.tinyioc.PropertyValue;
 import com.leon.meepo.tinyioc.PropertyValues;
 import com.leon.meepo.tinyioc.io.ResourceLoader;
@@ -70,7 +71,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
                 Element elementProperty = (Element) node;
                 String name = elementProperty.getAttribute("name");
                 String value = elementProperty.getAttribute("value");
-                beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                if (value != null && value.length() > 0) {
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, value));
+                } else {
+                    String ref = elementProperty.getAttribute("ref");
+                    BeanReference beanReference = new BeanReference(ref);
+                    beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue(name, beanReference));
+                }
             }
         }
     }

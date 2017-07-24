@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
 
+
+
+    <bean name="outService" class="com.leon.meepo.tinyioc.OutService">
+        <property name="helloWorldService" ref="helloWorldService"></property>
+    </bean>
+
     <bean name="helloWorldService" class="com.leon.meepo.tinyioc.HelloWorldService">
         <property name="text" value="Hello World!"></property>
-        <property name="name" value="songlin!"></property>
+        <property name="outService" ref="outService"></property>
     </bean>
 
 </beans>

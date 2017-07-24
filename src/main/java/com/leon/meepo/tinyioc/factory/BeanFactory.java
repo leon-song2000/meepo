@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public interface BeanFactory {
 
-    Object getBean(String beanName);
+    Object getBean(String beanName) throws Exception;
 
     void registerBeanDefinition(String beanName, BeanDefinition beanDefinition) throws Exception;
 }
